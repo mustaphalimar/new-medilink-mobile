@@ -77,8 +77,7 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
               paddingHorizontal: 8,
             }}
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid,
-            enim?
+            Login to your account and start using our services.
           </Text>
         </View>
 
@@ -151,7 +150,7 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
             onPress={signIn}
           />
           <Text style={{ opacity: 0.6 }}>OR</Text>
-          <View
+          {/* <View
             style={{
               flexDirection: "row",
               justifyContent: "space-around",
@@ -173,7 +172,7 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
               <Image source={googleSVG} style={{ width: 24, height: 24 }} />
               <Text style={{ opacity: 0.6 }}>Continue with Google</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           <TouchableOpacity
             style={{}}
             onPress={() => navigation.navigate("SignupScreen")}

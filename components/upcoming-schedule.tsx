@@ -1,9 +1,39 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import { useTheme } from "@react-navigation/native";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
+import { API_URL } from "../utils/contants";
+import { useUser } from "../hooks/use-user";
 
 const UpcomingSchedule = () => {
   const theme = useTheme();
+
+  const user = useUser();
+
+  const [upcomingSchedule, setUpcomingSchedule] = useState<any>();
+  const [upcomingSchedules, setUpcomingSchedules] = useState<number>();
+
+  useEffect(() => {
+    async function getUpcomingAppointment() {
+      try {
+        const res = await axios.get(
+          `${API_URL}/patient/my-appointments/pending/${user.user.patient.id}`
+        );
+
+        if (res.status === 200) {
+          setUpcomingSchedules(res.data.length);
+          setUpcomingSchedule(res.data[0]);
+        }
+      } catch (error: any) {
+        console.log(error.message);
+        alert("Error occured!");
+      }
+    }
+
+    getUpcomingAppointment();
+  }, []);
+
   return (
     <View style={{ marginTop: 20 }}>
       <View
@@ -27,112 +57,124 @@ const UpcomingSchedule = () => {
               justifyContent: "center",
             }}
           >
-            <Text style={{ color: "white", fontWeight: "bold" }}>0</Text>
+            <Text style={{ color: "white", fontWeight: "bold" }}>
+              {upcomingSchedules}
+            </Text>
           </View>
         </View>
       </View>
-
-      <View>
-        <Text
-          style={{
-            marginTop: 10,
-            opacity: 0.6,
-          }}
-        >
-          No scheduled appointments for you yet.
-        </Text>
-      </View>
-      {/* <View
-        style={{
-          marginTop: 20,
-          borderRadius: 20,
-          padding: 16,
-          width: "100%",
-          height: 150,
-          justifyContent: "space-between",
-          backgroundColor: theme.colors.primary,
-        }}
-      >
+      {upcomingSchedule ? (
         <View
           style={{
-            flexDirection: "row",
+            marginTop: 20,
+            borderRadius: 20,
+            padding: 16,
+            width: "100%",
+            height: 150,
             justifyContent: "space-between",
-            alignItems: "center",
+            backgroundColor: theme.colors.primary,
           }}
         >
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 10 }}>
-            <Image
-              source={require("../assets/images/toni-kroos.jpg")}
-              style={{ width: 54, height: 54, borderRadius: 50 }}
-            />
-            <View>
-              <Text style={{ color: "white", fontSize: 18, fontWeight: "500" }}>
-                Dr. Toni Kroos
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+            >
+              <Image
+                source={require("../assets/images/toni-kroos.jpg")}
+                style={{ width: 54, height: 54, borderRadius: 50 }}
+              />
+              <View>
+                <Text
+                  style={{ color: "white", fontSize: 18, fontWeight: "500" }}
+                >
+                  Dr. {upcomingSchedule.doctor.user.name}
+                </Text>
+                <Text style={{ color: theme.colors.border, fontWeight: "500" }}>
+                  Neurosurgeon Consultation
+                </Text>
+              </View>
+            </View>
+            <View
+              style={{
+                backgroundColor: theme.colors.background,
+                padding: 5,
+                borderRadius: 50,
+              }}
+            >
+              <MaterialCommunityIcons
+                name="phone"
+                size={30}
+                color={theme.colors.primary}
+              />
+            </View>
+          </View>
+
+          <View
+            style={{
+              width: "100%",
+              height: 50,
+              backgroundColor: "#3465cf",
+              borderRadius: 12,
+              flexDirection: "row",
+              padding: 10,
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 4 }}
+            >
+              <MaterialCommunityIcons
+                name="calendar"
+                size={30}
+                color={theme.colors.background}
+              />
+              <Text style={{ color: theme.colors.background }}>
+                {new Date(upcomingSchedule.date).toUTCString().split("2024")[0]}
               </Text>
-              <Text style={{ color: theme.colors.border, fontWeight: "500" }}>
-                Neurosurgeon Consultation
+            </View>
+            <View
+              style={{
+                width: 1,
+                height: "100%",
+                backgroundColor: theme.colors.border,
+                opacity: 0.5,
+              }}
+            />
+            <View
+              style={{ flexDirection: "row", alignItems: "center", gap: 4 }}
+            >
+              <MaterialCommunityIcons
+                name="clock"
+                size={30}
+                color={theme.colors.background}
+              />
+              <Text>
+                <Text style={{ color: theme.colors.background }}>
+                  09:00 - 10:00
+                </Text>
               </Text>
             </View>
           </View>
-          <View
+        </View>
+      ) : (
+        <View>
+          <Text
             style={{
-              backgroundColor: theme.colors.background,
-              padding: 5,
-              borderRadius: 50,
+              marginTop: 10,
+              opacity: 0.6,
             }}
           >
-            <MaterialCommunityIcons
-              name="phone"
-              size={30}
-              color={theme.colors.primary}
-            />
-          </View>
+            No scheduled appointments for you yet.
+          </Text>
         </View>
-
-        <View
-          style={{
-            width: "100%",
-            height: 50,
-            backgroundColor: "#3465cf",
-            borderRadius: 12,
-            flexDirection: "row",
-            padding: 10,
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-            <MaterialCommunityIcons
-              name="calendar"
-              size={30}
-              color={theme.colors.background}
-            />
-            <Text style={{ color: theme.colors.background }}>
-              Thursday, 20 June
-            </Text>
-          </View>
-          <View
-            style={{
-              width: 1,
-              height: "100%",
-              backgroundColor: theme.colors.border,
-              opacity: 0.5,
-            }}
-          />
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-            <MaterialCommunityIcons
-              name="clock"
-              size={30}
-              color={theme.colors.background}
-            />
-            <Text>
-              <Text style={{ color: theme.colors.background }}>
-                09:00 - 10:00
-              </Text>
-            </Text>
-          </View>
-        </View>
-      </View> */}
+      )}
     </View>
   );
 };

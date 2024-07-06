@@ -68,6 +68,7 @@ const SpecialistDoctorCard = ({ doctor, navigation }: Props) => {
         <View>
           <View
             style={{
+              gap: 30,
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "space-between",
@@ -95,7 +96,7 @@ const SpecialistDoctorCard = ({ doctor, navigation }: Props) => {
             <View style={{}}>
               <MaterialCommunityIcons
                 name="heart-outline"
-                size={20}
+                size={24}
                 style={{ opacity: 0.5 }}
               />
             </View>

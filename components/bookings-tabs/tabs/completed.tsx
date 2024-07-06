@@ -14,7 +14,7 @@ import axios from "axios";
 import { API_URL } from "../../../utils/contants";
 import { useUser } from "../../../hooks/use-user";
 
-const Upcoming = () => {
+const Completed = () => {
   const theme = useTheme();
   const user = useUser();
   const [appointments, setAppointments] = useState<any[]>([]);
@@ -23,7 +23,7 @@ const Upcoming = () => {
     async function getPendingAppointments() {
       try {
         const res = await axios.get(
-          `${API_URL}/patient/my-appointments/pending/${user.user.patient.id}`
+          `${API_URL}/patient/my-appointments/completed/${user.user.patient.id}`
         );
 
         if (res.status === 200) {
@@ -143,51 +143,32 @@ const Upcoming = () => {
                 <TouchableOpacity
                   style={{
                     width: "100%",
-                    backgroundColor: "#cfddfa",
+                    backgroundColor: theme.colors.primary,
                     borderRadius: 50,
-                    height: 50,
+                    height: 45,
                     justifyContent: "center",
                     alignItems: "center",
                   }}
+                  // @ts-ignore
                   onPress={() => {}}
                 >
                   <Text
-                    style={{
-                      color: theme.colors.primary,
-                      fontSize: 16,
-                      fontWeight: "600",
-                    }}
+                    style={{ color: "white", fontSize: 18, fontWeight: 600 }}
                   >
-                    Cancel
+                    Add Review
                   </Text>
                 </TouchableOpacity>
-                {/* <TouchableOpacity
-            style={{
-              width: "45%",
-              backgroundColor: theme.colors.primary,
-              borderRadius: 50,
-              height: 50,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            // @ts-ignore
-            onPress={() => {}}
-          >
-            <Text style={{ color: "white", fontSize: 18, fontWeight: 600 }}>
-              Reschedule
-            </Text>
-          </TouchableOpacity> */}
               </View>
             </View>
           );
         })
       ) : (
-        <Text>You don't have any upcoming appointments at the moment.</Text>
+        <Text>You haven't completed any appointments yet.</Text>
       )}
     </ScrollView>
   );
 };
-export default Upcoming;
+export default Completed;
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,

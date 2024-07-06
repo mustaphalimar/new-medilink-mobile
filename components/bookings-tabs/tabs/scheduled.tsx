@@ -14,7 +14,7 @@ import axios from "axios";
 import { API_URL } from "../../../utils/contants";
 import { useUser } from "../../../hooks/use-user";
 
-const Upcoming = () => {
+const Scheduled = () => {
   const theme = useTheme();
   const user = useUser();
   const [appointments, setAppointments] = useState<any[]>([]);
@@ -23,7 +23,7 @@ const Upcoming = () => {
     async function getPendingAppointments() {
       try {
         const res = await axios.get(
-          `${API_URL}/patient/my-appointments/pending/${user.user.patient.id}`
+          `${API_URL}/patient/my-appointments/scheduled/${user.user.patient.id}`
         );
 
         if (res.status === 200) {
@@ -182,12 +182,12 @@ const Upcoming = () => {
           );
         })
       ) : (
-        <Text>You don't have any upcoming appointments at the moment.</Text>
+        <Text>You don't have any scheduled appointments at the moment.</Text>
       )}
     </ScrollView>
   );
 };
-export default Upcoming;
+export default Scheduled;
 const styles = StyleSheet.create({
   container: {
     marginTop: 20,

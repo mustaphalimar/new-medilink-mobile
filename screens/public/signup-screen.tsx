@@ -39,6 +39,25 @@ const SignUpScreen = ({
 
   const signUp = async () => {
     const { email, password, name } = value;
+
+    if (!email || !password || !name) return;
+
+    try {
+      const res = await axios.post(`${API_URL}/users`, {
+        name,
+        email,
+        password,
+        role: "PATIENT",
+      });
+
+      if (res.status === 201) {
+        alert("Account created. Check your emails.");
+        user.setUser(res.data);
+      }
+    } catch (error: any) {
+      alert(error.message);
+      console.log(error.message);
+    }
   };
 
   return (
@@ -73,12 +92,11 @@ const SignUpScreen = ({
               paddingHorizontal: 8,
             }}
           >
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid,
-            enim?
+            Create an account and start using our services today.
           </Animated.Text>
         </View>
 
-        <Animated.View
+        {/* <Animated.View
           entering={FadeInUp.duration(1000).springify()}
           style={{
             flexDirection: "row",
@@ -104,7 +122,7 @@ const SignUpScreen = ({
           >
             <Image source={facebookSVG} style={{ width: 24, height: 24 }} />
           </TouchableOpacity>
-        </Animated.View>
+        </Animated.View> */}
 
         <Animated.View
           entering={FadeInUp.duration(1000).springify()}

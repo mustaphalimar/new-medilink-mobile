@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import CustomSegmentedControl from "./CustomSegmentedControl";
 import Upcoming from "./tabs/upcoming";
+import Scheduled from "./tabs/scheduled";
+import Completed from "./tabs/completed";
 
 const BookingTabs: React.FC = () => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
@@ -13,14 +15,13 @@ const BookingTabs: React.FC = () => {
   return (
     <View style={styles.container}>
       <CustomSegmentedControl
-        tabs={["Upcoming", "Scheduled", "Completed", "Cancelled"]}
+        tabs={["Upcoming", "Scheduled", "Completed"]}
         onTabPress={handleTabPress}
       />
       <View style={styles.content}>
         {selectedIndex === 0 && <Upcoming />}
-        {selectedIndex === 1 && <Text>Scheduled Content</Text>}
-        {selectedIndex === 2 && <Text>Completed Content</Text>}
-        {selectedIndex === 3 && <Text>Cancelled Content</Text>}
+        {selectedIndex === 1 && <Scheduled />}
+        {selectedIndex === 2 && <Completed />}
       </View>
     </View>
   );
