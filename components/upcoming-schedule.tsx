@@ -86,8 +86,8 @@ const UpcomingSchedule = () => {
               style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
             >
               <Image
-                source={require("../assets/images/toni-kroos.jpg")}
-                style={{ width: 54, height: 54, borderRadius: 50 }}
+                source={require("../assets/images/doctor-avatar.png")}
+                style={{ width: 60, height: 60, borderRadius: 50 }}
               />
               <View>
                 <Text

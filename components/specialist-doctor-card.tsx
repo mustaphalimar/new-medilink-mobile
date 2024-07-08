@@ -61,7 +61,7 @@ const SpecialistDoctorCard = ({ doctor, navigation }: Props) => {
       <View style={{ flexDirection: "row", gap: 15 }}>
         <View>
           <Image
-            source={require("../assets/images/user.png")}
+            source={require("../assets/images/doctor-avatar.png")}
             style={{ width: 80, height: 80, borderRadius: 10 }}
           />
         </View>

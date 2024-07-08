@@ -88,7 +88,7 @@ const Upcoming = () => {
               >
                 <View>
                   <Image
-                    source={require("../../../assets/images/user.png")}
+                    source={require("../../../assets/images/doctor-avatar.png")}
                     style={{ width: 80, height: 80, borderRadius: 10 }}
                   />
                 </View>

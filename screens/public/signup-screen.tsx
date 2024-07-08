@@ -55,8 +55,8 @@ const SignUpScreen = ({
         user.setUser(res.data);
       }
     } catch (error: any) {
-      alert(error.message);
-      console.log(error.message);
+      alert("Email already exists.");
+      console.log(error);
     }
   };
 

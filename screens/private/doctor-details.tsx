@@ -114,50 +114,48 @@ const DoctorDetails = ({
         paddingHorizontal: 20,
       }}
     >
-      <ScrollView>
-        {/* Header */}
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <View style={styles.backArrow}>
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <MatertialIcons
-                name="arrow-back-ios"
-                size={24}
-                color={theme.colors.text}
-              />
-            </TouchableOpacity>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <View style={styles.backArrow}>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
+            <MatertialIcons
+              name="arrow-back-ios"
+              size={24}
+              color={theme.colors.text}
+            />
+          </TouchableOpacity>
+        </View>
+        <Text style={{ fontSize: 20, fontWeight: "600" }}>Doctor Details</Text>
+        <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: theme.colors.border,
+              padding: 8,
+              borderRadius: 50,
+            }}
+          >
+            <MatertialIcons name="share" size={26} />
           </View>
-          <Text style={{ fontSize: 20, fontWeight: "600" }}>
-            Doctor Details
-          </Text>
-          <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: theme.colors.border,
-                padding: 8,
-                borderRadius: 50,
-              }}
-            >
-              <MatertialIcons name="share" size={26} />
-            </View>
-            <View
-              style={{
-                borderWidth: 1,
-                borderColor: theme.colors.border,
-                padding: 8,
-                borderRadius: 50,
-              }}
-            >
-              <MatertialCommunityIcons name="heart-outline" size={26} />
-            </View>
+          <View
+            style={{
+              borderWidth: 1,
+              borderColor: theme.colors.border,
+              padding: 8,
+              borderRadius: 50,
+            }}
+          >
+            <MatertialCommunityIcons name="heart-outline" size={26} />
           </View>
         </View>
+      </View>
+      <ScrollView>
+        {/* Header */}
 
         {/* Doctor Infos : Photo, name, location  */}
         <View style={{ marginTop: 20, padding: 10 }}>
@@ -170,12 +168,12 @@ const DoctorDetails = ({
           >
             <View>
               <Image
-                source={require("../../assets/images/user.png")}
+                source={require("../../assets/images/doctor-avatar.png")}
                 style={{
                   width: 100,
                   height: 100,
                   borderRadius: 50,
-                  opacity: 0.5,
+                  opacity: 0.8,
                 }}
               />
             </View>
@@ -357,8 +355,8 @@ const DoctorDetails = ({
           right: 20,
           width: "100%",
         }}
-        // @ts-ignore
         onPress={() =>
+          // @ts-ignore
           navigation.navigate("BookAppointment", {
             doctorId,
           })

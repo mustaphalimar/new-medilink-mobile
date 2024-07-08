@@ -17,6 +17,7 @@ import ChatScreen from "../screens/private/chat";
 import BookingsScreen from "../screens/private/bookings";
 import ProfileScreen from "../screens/private/profile";
 import BookAppointment from "../screens/private/book-appointment";
+import YourProfile from "../screens/private/your-profile";
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +34,14 @@ export type HomeStackParamList = {
   BookAppointment: undefined;
 };
 
+export type ProfileStackParamList = {
+  ProfileScreen: undefined;
+  YourProfileScreen: undefined;
+  SettingsScreen: undefined;
+};
+
 const HomeStack = createNativeStackNavigator<HomeStackParamList>();
+
 export type HomeStackScreenProps<T extends keyof HomeStackParamList> =
   NativeStackScreenProps<HomeStackParamList, T>;
 
@@ -44,6 +52,20 @@ function HomeStackScreen() {
       <HomeStack.Screen name="DoctorDetails" component={DoctorDetails} />
       <HomeStack.Screen name="BookAppointment" component={BookAppointment} />
     </HomeStack.Navigator>
+  );
+}
+
+const ProfileStack = createNativeStackNavigator<ProfileStackParamList>();
+
+export type ProfileStackScreenProps<T extends keyof ProfileStackParamList> =
+  NativeStackScreenProps<ProfileStackParamList, T>;
+
+function ProfileStackScreen() {
+  return (
+    <ProfileStack.Navigator screenOptions={{ headerShown: false }}>
+      <ProfileStack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <ProfileStack.Screen name="YourProfileScreen" component={YourProfile} />
+    </ProfileStack.Navigator>
   );
 }
 
@@ -129,6 +151,7 @@ const PrivateNavigator = () => {
               </View>
             ),
           }}
+          // @ts-ignore
           component={BookingsScreen}
         />
         <Tab.Screen
@@ -163,7 +186,8 @@ const PrivateNavigator = () => {
               </View>
             ),
           }}
-          component={ProfileScreen}
+          // @ts-ignore
+          component={ProfileStackScreen}
         />
       </Tab.Group>
     </Tab.Navigator>
