@@ -25,7 +25,7 @@ const PrimaryButton = ({ label, onPress, labelStyle, style }: Props) => {
           backgroundColor: theme.colors.primary,
           paddingHorizontal: 32,
           height: 52,
-          borderRadius: 12,
+          borderRadius: 8,
           alignItems: "center",
           justifyContent: "center",
         },

@@ -1,4 +1,4 @@
-import MatertialIcons from "@expo/vector-icons/MaterialIcons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
@@ -28,7 +28,7 @@ const BookingsScreen: React.FC<BookingsStackScreenProps<"BookingsScreen">> = ({
       >
         <View style={styles.backArrow}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <MatertialIcons
+            <MaterialIcons
               name="arrow-back-ios"
               size={24}
               color={theme.colors.text}
@@ -39,7 +39,7 @@ const BookingsScreen: React.FC<BookingsStackScreenProps<"BookingsScreen">> = ({
           <Text style={{ fontSize: 18 }}>My Bookings</Text>
         </View>
         <View>
-          <MatertialIcons name="search" size={30} color={theme.colors.text} />
+          <MaterialIcons name="search" size={30} color={theme.colors.text} />
         </View>
       </View>
       <BookingTabs navigation={navigation} route={route} />

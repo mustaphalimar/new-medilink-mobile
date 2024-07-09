@@ -1,4 +1,4 @@
-import MatertialIcons from "@expo/vector-icons/MaterialIcons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import axios from "axios";
 import { Skeleton } from "moti/skeleton";
@@ -151,7 +151,7 @@ const BookAppointment = ({
       >
         <View style={styles.backArrow}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <MatertialIcons
+            <MaterialIcons
               name="arrow-back-ios"
               size={24}
               color={theme.colors.text}
@@ -207,7 +207,7 @@ const BookAppointment = ({
               <View
                 style={{ flexDirection: "row", gap: 4, alignItems: "center" }}
               >
-                <MatertialIcons
+                <MaterialIcons
                   name="location-on"
                   size={20}
                   color={theme.colors.primary}
@@ -259,7 +259,7 @@ const BookAppointment = ({
                     size={30}
                     color={theme.colors.primary}
                   />
-                  {/* <MatertialIcons
+                  {/* <MaterialIcons
                 name="work"
                 size={30}
                 color={theme.colors.primary}

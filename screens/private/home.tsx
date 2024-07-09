@@ -8,6 +8,7 @@ import NearbyHospitals from "../../components/nearby-hospitals";
 import TopSpecialist from "../../components/top-specialist";
 import UpcomingSchedule from "../../components/upcoming-schedule";
 import { useLocation } from "../../hooks/use-location";
+
 import { useUser } from "../../hooks/use-user";
 
 const sections = [

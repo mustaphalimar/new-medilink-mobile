@@ -1,5 +1,4 @@
-import MatertialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import MatertialIcons from "@expo/vector-icons/MaterialIcons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -103,7 +102,7 @@ const Scheduled = () => {
                       gap: 4,
                     }}
                   >
-                    <MatertialIcons
+                    <MaterialIcons
                       name="location-pin"
                       size={20}
                       color={"#1aa"}
@@ -118,7 +117,7 @@ const Scheduled = () => {
                         gap: 4,
                       }}
                     >
-                      <MatertialCommunityIcons
+                      <MaterialCommunityIcons
                         name="book-check"
                         size={20}
                         color={"#1aa"}

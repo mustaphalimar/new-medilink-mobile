@@ -1,4 +1,4 @@
-import Icons from "@expo/vector-icons/MaterialIcons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { StyleSheet, TouchableOpacity, View } from "react-native";
 import Animated, {
@@ -28,7 +28,11 @@ const IntroScreen02 = ({
     <View style={[styles.container, { backgroundColor: theme.colors.card }]}>
       <View style={styles.backArrow}>
         <TouchableOpacity onPress={() => navigation.navigate("IntroScreen01")}>
-          <Icons name="arrow-back-ios" size={24} color={theme.colors.text} />
+          <MaterialIcons
+            name="arrow-back-ios"
+            size={24}
+            color={theme.colors.text}
+          />
         </TouchableOpacity>
       </View>
 

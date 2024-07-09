@@ -1,5 +1,4 @@
-import MatertialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import MatertialIcons from "@expo/vector-icons/MaterialIcons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -22,28 +21,28 @@ export const statistics = [
     name: "Patients",
     icon_name: "people",
     number: "7500+",
-    icon: MatertialIcons,
+    icon: MaterialIcons,
   },
   {
     id: 2,
     name: "Years Exp.",
     icon_name: "work",
     number: "10+",
-    icon: MatertialIcons,
+    icon: MaterialIcons,
   },
   {
     id: 3,
     name: "Rating",
     icon_name: "star",
     number: "4.4+",
-    icon: MatertialIcons,
+    icon: MaterialIcons,
   },
   {
     id: 4,
     name: "Reviews",
     icon_name: "comment",
     number: "4659+",
-    icon: MatertialIcons,
+    icon: MaterialIcons,
   },
 ];
 
@@ -122,7 +121,7 @@ const DoctorDetails = ({
       >
         <View style={styles.backArrow}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <MatertialIcons
+            <MaterialIcons
               name="arrow-back-ios"
               size={24}
               color={theme.colors.text}
@@ -139,7 +138,7 @@ const DoctorDetails = ({
               borderRadius: 50,
             }}
           >
-            <MatertialIcons name="share" size={26} />
+            <MaterialIcons name="share" size={26} />
           </View>
           <View
             style={{
@@ -149,7 +148,7 @@ const DoctorDetails = ({
               borderRadius: 50,
             }}
           >
-            <MatertialCommunityIcons name="heart-outline" size={26} />
+            <MaterialCommunityIcons name="heart-outline" size={26} />
           </View>
         </View>
       </View>
@@ -188,7 +187,7 @@ const DoctorDetails = ({
               <View
                 style={{ flexDirection: "row", gap: 4, alignItems: "center" }}
               >
-                <MatertialIcons
+                <MaterialIcons
                   name="location-on"
                   size={20}
                   color={theme.colors.primary}
@@ -240,7 +239,7 @@ const DoctorDetails = ({
                     size={30}
                     color={theme.colors.primary}
                   />
-                  {/* <MatertialIcons
+                  {/* <MaterialIcons
                 name="work"
                 size={30}
                 color={theme.colors.primary}
@@ -314,7 +313,7 @@ const DoctorDetails = ({
             }}
           />
           <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
-            <MatertialIcons
+            <MaterialIcons
               name="location-on"
               size={30}
               color={theme.colors.primary}
