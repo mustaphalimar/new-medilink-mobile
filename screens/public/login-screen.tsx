@@ -1,4 +1,4 @@
-import Icons from "@expo/vector-icons/MaterialIcons";
+import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
@@ -22,6 +22,16 @@ import axios from "axios";
 import { API_URL } from "../../utils/contants";
 import { useUser } from "../../hooks/use-user";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
+const formSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8, "Password must be at least 8 characters long. "),
+});
+type LoginSchema = z.infer<typeof formSchema>;
+
 const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
   const theme = useTheme();
   const [loading, setLoading] = useState(false);
@@ -31,8 +41,20 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
   });
   const user = useUser();
 
-  const signIn = async () => {
-    const { email, password } = values;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    reset,
+  } = useForm<LoginSchema>({
+    resolver: zodResolver(formSchema),
+  });
+
+  const signIn = async (data: LoginSchema) => {
+    const { email, password } = data;
+    if (!email || !password) {
+      alert("Please provide enough credentials.");
+    }
     try {
       const res = await axios.post(`${API_URL}/auth/login`, values);
       const data = await res.data;
@@ -52,7 +74,11 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
       >
         <View style={styles.backArrow}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icons name="arrow-back-ios" size={24} color={theme.colors.text} />
+            <MaterialIcons
+              name="arrow-back-ios"
+              size={24}
+              color={theme.colors.text}
+            />
           </TouchableOpacity>
         </View>
 
@@ -93,10 +119,9 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
         >
           <View style={styles.inputContainer}>
             <TextInput
-              placeholder="Email@example.com"
+              {...register("email")}
+              placeholder="email@example.com"
               autoCapitalize="none"
-              value={values.email}
-              onChangeText={(text) => setValues({ ...values, email: text })}
               style={{
                 fontSize: 16,
                 fontWeight: "500",
@@ -104,22 +129,28 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
                 paddingLeft: 48,
                 paddingRight: 12,
                 height: 48,
-                borderRadius: 12,
+                borderRadius: 8,
                 borderWidth: 1,
                 borderColor: theme.colors.border,
                 backgroundColor: theme.colors.background,
                 width: "100%",
               }}
             />
-            <Icons
+            <MaterialIcons
               name="email"
               color={theme.colors.text}
               size={24}
               style={styles.icon}
             />
           </View>
+          {errors.email && (
+            <Text style={{ color: "red", fontSize: 12 }}>
+              {errors.email.message}
+            </Text>
+          )}
           <View style={styles.inputContainer}>
             <TextInput
+              {...register("password")}
               placeholder="Password"
               autoCapitalize="none"
               style={{
@@ -129,27 +160,30 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
                 paddingLeft: 48,
                 paddingRight: 12,
                 height: 48,
-                borderRadius: 12,
+                borderRadius: 8,
                 borderWidth: 1,
                 borderColor: theme.colors.border,
                 backgroundColor: theme.colors.background,
                 width: "100%",
               }}
-              value={values.password}
-              onChangeText={(text) => setValues({ ...values, password: text })}
             />
-            <Icons
+            <MaterialIcons
               name="lock"
               color={theme.colors.text}
               size={24}
               style={styles.icon}
             />
           </View>
+          {errors.password && (
+            <Text style={{ color: "red", fontSize: 12 }}>
+              {errors.password.message}
+            </Text>
+          )}
 
           <PrimaryButton
             label="Login"
             style={{ width: "100%", marginTop: 10 }}
-            onPress={signIn}
+            onPress={handleSubmit(signIn)}
           />
           <Text style={{ opacity: 0.6 }}>OR</Text>
           {/* <View
