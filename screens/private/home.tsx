@@ -1,6 +1,6 @@
 import * as Location from "expo-location";
 import { useEffect } from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { FlatList, ScrollView, StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DoctorSpeciality from "../../components/doctor-speciality";
 import HomeHeader from "../../components/home-header";
@@ -9,6 +9,14 @@ import TopSpecialist from "../../components/top-specialist";
 import UpcomingSchedule from "../../components/upcoming-schedule";
 import { useLocation } from "../../hooks/use-location";
 import { useUser } from "../../hooks/use-user";
+
+const sections = [
+  { key: "HomeHeader", component: HomeHeader },
+  { key: "UpcomingSchedule", component: UpcomingSchedule },
+  { key: "DoctorSpeciality", component: DoctorSpeciality },
+  { key: "NearbyHospitals", component: NearbyHospitals },
+  { key: "TopSpecialist", component: TopSpecialist },
+];
 
 const HomeScreen = ({ navigation }: { navigation: any }) => {
   const location = useLocation();
@@ -37,13 +45,18 @@ const HomeScreen = ({ navigation }: { navigation: any }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <HomeHeader />
-        <UpcomingSchedule />
-        <DoctorSpeciality />
-        <NearbyHospitals />
-        <TopSpecialist navigation={navigation} />
-      </ScrollView>
+      <FlatList
+        data={sections}
+        renderItem={({ item }) => {
+          const Component = item.component;
+          return (
+            <View style={{ marginVertical: 10 }}>
+              <Component navigation={navigation} />
+            </View>
+          );
+        }}
+        keyExtractor={(item) => item.key}
+      />
     </SafeAreaView>
   );
 };

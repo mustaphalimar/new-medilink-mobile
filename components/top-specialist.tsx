@@ -6,27 +6,6 @@ import { API_URL } from "../utils/contants";
 import { Doctor } from "../utils/types";
 import SpecialistDoctorCard from "./specialist-doctor-card";
 
-const doctors = [
-  {
-    id: 1,
-    name: "Dr. Toni Kroos",
-    speciality: "Neurosurgeon",
-    image: require("../assets/images/toni-kroos.jpg"),
-  },
-  {
-    id: 2,
-    name: "Dr. Dani Carvajal",
-    speciality: "Cardiology",
-    image: require("../assets/images/dani_carvajal.jpg"),
-  },
-  {
-    id: 3,
-    name: "Dr. Luka Modriç",
-    speciality: "Eyeology",
-    image: require("../assets/images/luka_modric.jpg"),
-  },
-];
-
 interface Props {
   navigation: NavigationProp<any, any>;
 }
@@ -59,21 +38,20 @@ const TopSpecialist = ({ navigation }: Props) => {
         Top Specialist
       </Text>
 
-      <View style={{ gap: 15, marginTop: 10 }}>
-        {doctors && (
-          <FlatList
-            data={doctors}
-            renderItem={({ item: d }) => (
-              <Pressable
-                key={d.id}
-                // onPress={() => navigation && navigation.push("DoctorDetails")}
-              >
-                <SpecialistDoctorCard doctor={d} navigation={navigation} />
-              </Pressable>
-            )}
-          />
-        )}
-      </View>
+      {doctors && (
+        <FlatList
+          style={{ gap: 15, marginTop: 10 }}
+          data={doctors}
+          renderItem={({ item: d }) => (
+            <Pressable
+              key={d.id}
+              // onPress={() => navigation && navigation.push("DoctorDetails")}
+            >
+              <SpecialistDoctorCard doctor={d} navigation={navigation} />
+            </Pressable>
+          )}
+        />
+      )}
     </View>
   );
 };
