@@ -1,19 +1,10 @@
+import { FontAwesome6, MaterialIcons } from "@expo/vector-icons";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useUser } from "../../hooks/use-user";
-import {
-  MaterialCommunityIcons,
-  MaterialIcons,
-  FontAwesome6,
-  Ionicons,
-} from "@expo/vector-icons";
 
 import { useTheme } from "@react-navigation/native";
-import {
-  PrivateStackScreenProps,
-  ProfileStackParamList,
-  ProfileStackScreenProps,
-} from "../../navigators/private-stack";
+import { ProfileStackScreenProps } from "../../navigators/private-stack";
 
 const ProfileScreen: React.FC<ProfileStackScreenProps<"ProfileScreen">> = ({
   navigation,

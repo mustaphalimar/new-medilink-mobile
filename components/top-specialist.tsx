@@ -1,14 +1,10 @@
 import { NavigationProp, useTheme } from "@react-navigation/native";
-import { Pressable, StyleSheet, Text, View } from "react-native";
-import SpecialistDoctorCard from "./specialist-doctor-card";
-import {
-  HomeStackScreenProps,
-  PrivateStackScreenProps,
-} from "../navigators/private-stack";
-import { useEffect, useState } from "react";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
 import { API_URL } from "../utils/contants";
 import { Doctor } from "../utils/types";
+import SpecialistDoctorCard from "./specialist-doctor-card";
 
 const doctors = [
   {
@@ -64,17 +60,19 @@ const TopSpecialist = ({ navigation }: Props) => {
       </Text>
 
       <View style={{ gap: 15, marginTop: 10 }}>
-        {doctors &&
-          doctors.map((d) => {
-            return (
+        {doctors && (
+          <FlatList
+            data={doctors}
+            renderItem={({ item: d }) => (
               <Pressable
                 key={d.id}
                 // onPress={() => navigation && navigation.push("DoctorDetails")}
               >
                 <SpecialistDoctorCard doctor={d} navigation={navigation} />
               </Pressable>
-            );
-          })}
+            )}
+          />
+        )}
       </View>
     </View>
   );

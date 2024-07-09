@@ -1,4 +1,8 @@
+import MatertialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import MatertialIcons from "@expo/vector-icons/MaterialIcons";
 import { useTheme } from "@react-navigation/native";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -7,14 +11,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import MatertialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import MatertialIcons from "@expo/vector-icons/MaterialIcons";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { API_URL } from "../../../utils/contants";
 import { useUser } from "../../../hooks/use-user";
+import { BookingsStackScreenProps } from "../../../navigators/private-stack";
+import { API_URL } from "../../../utils/contants";
 
-const Completed = () => {
+const Completed: React.FC<BookingsStackScreenProps<"BookingsScreen">> = ({
+  navigation,
+}) => {
   const theme = useTheme();
   const user = useUser();
   const [appointments, setAppointments] = useState<any[]>([]);
@@ -142,7 +145,33 @@ const Completed = () => {
               >
                 <TouchableOpacity
                   style={{
-                    width: "100%",
+                    width: "45%",
+                    backgroundColor: "#cfddfa",
+                    borderRadius: 50,
+                    height: 50,
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                  onPress={() =>
+                    // @ts-ignore
+                    navigation.push("MyAppointments", {
+                      apptId: appt.id,
+                    })
+                  }
+                >
+                  <Text
+                    style={{
+                      color: theme.colors.primary,
+                      fontSize: 18,
+                      fontWeight: 600,
+                    }}
+                  >
+                    Details
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{
+                    width: "45%",
                     backgroundColor: theme.colors.primary,
                     borderRadius: 50,
                     height: 45,

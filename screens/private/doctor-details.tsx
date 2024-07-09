@@ -1,6 +1,8 @@
 import MatertialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MatertialIcons from "@expo/vector-icons/MaterialIcons";
-import { NavigationProp, useTheme } from "@react-navigation/native";
+import { useTheme } from "@react-navigation/native";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -11,12 +13,7 @@ import {
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  HomeStackScreenProps,
-  PrivateStackScreenProps,
-} from "../../navigators/private-stack";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { HomeStackScreenProps } from "../../navigators/private-stack";
 import { API_URL } from "../../utils/contants";
 
 export const statistics = [
@@ -97,7 +94,9 @@ const DoctorDetails = ({
     async function fetchDoctorDetails() {
       try {
         const res = await axios(`${API_URL}/doctor/${doctorId}`);
-        setDoctorData(res.data.user);
+        console.log("USER : ", res.data.user);
+
+        setDoctorData(res.data);
       } catch (error: any) {
         console.log("Error fetching doctor data : ", error.message);
       }
@@ -180,9 +179,11 @@ const DoctorDetails = ({
             <View style={{ gap: 10 }}>
               <View>
                 <Text style={{ fontWeight: "600", fontSize: 20 }}>
-                  {doctorData && doctorData.name}
+                  {doctorData && doctorData.user.name}
                 </Text>
-                <Text style={{ fontSize: 14, opacity: 0.5 }}>Cardiology</Text>
+                <Text style={{ fontSize: 14, opacity: 0.5 }}>
+                  {doctorData && doctorData.speciality}
+                </Text>
               </View>
               <View
                 style={{ flexDirection: "row", gap: 4, alignItems: "center" }}

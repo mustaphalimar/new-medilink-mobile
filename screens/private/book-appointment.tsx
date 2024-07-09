@@ -1,4 +1,10 @@
+import MatertialIcons from "@expo/vector-icons/MaterialIcons";
+import { useTheme } from "@react-navigation/native";
+import axios from "axios";
+import { Skeleton } from "moti/skeleton";
+import { useEffect, useState } from "react";
 import {
+  FlatList,
   Image,
   ScrollView,
   StyleSheet,
@@ -7,17 +13,10 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import MatertialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import MatertialIcons from "@expo/vector-icons/MaterialIcons";
-import { HomeStackScreenProps } from "../../navigators/private-stack";
-import { useTheme } from "@react-navigation/native";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { API_URL, dayNames, months } from "../../utils/contants";
-import { MotiView } from "moti";
-import { Skeleton } from "moti/skeleton";
-import { statistics } from "./doctor-details";
 import { useUser } from "../../hooks/use-user";
+import { HomeStackScreenProps } from "../../navigators/private-stack";
+import { API_URL, dayNames, months } from "../../utils/contants";
+import { statistics } from "./doctor-details";
 
 const BookAppointment = ({
   navigation,
@@ -93,7 +92,6 @@ const BookAppointment = ({
         setSelectedDay(`${uniqueDates[0].month}/${uniqueDates[0].day}`);
 
         setAvailableDates(uniqueDates);
-        console.log(availableDates);
       } catch (error: any) {
         console.log(error.message);
       }
@@ -104,32 +102,22 @@ const BookAppointment = ({
 
   const makeAppointment = async () => {
     try {
-      console.log("Selected Day:", selectedDay);
-
       // Assuming selectedDay is in the format "Month/Day" (e.g., "April/29")
       let monthAndDay = selectedDay.split("/");
 
       const [monthName, day] = monthAndDay;
 
-      console.log("Month Name:", monthName);
-      console.log("day:", day);
-
       // Assuming months is an object with month names as keys and month numbers as values
       // @ts-ignore
       let monthNumber = Object.values(months).indexOf(monthName);
 
-      console.log("Month Number:", monthNumber);
       monthNumber += 1;
 
       // Create the date string in the format "YYYY-MM-DDTHH:mm:ss.sssZ"
-      console.log(`2024-${monthNumber.toString().padStart(2, "0")}-${day}`);
 
       const date = new Date(
         `2024-${monthNumber.toString().padStart(2, "0")}-${day}`
       ).toISOString();
-
-      console.log("SELECTED DAY :", date);
-      console.log("PATIENT : ", user.user.patient);
 
       const res = await axios.post(`${API_URL}/appointments`, {
         date,
@@ -157,7 +145,7 @@ const BookAppointment = ({
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-between",
+
           alignItems: "center",
         }}
       >
@@ -170,11 +158,18 @@ const BookAppointment = ({
             />
           </TouchableOpacity>
         </View>
-      </View>
-      <ScrollView>
-        <Text style={{ fontSize: 20, fontWeight: "600", textAlign: "center" }}>
+        <Text
+          style={{
+            fontSize: 20,
+            fontWeight: "600",
+            textAlign: "center",
+            marginLeft: 80,
+          }}
+        >
           Book Appointment
         </Text>
+      </View>
+      <ScrollView>
         <View style={{ marginTop: 20, padding: 10 }}>
           <View
             style={{
@@ -299,88 +294,90 @@ const BookAppointment = ({
 
         <View style={{ marginTop: 20 }}>
           <Text style={{ fontSize: 20, fontWeight: "600" }}>Day</Text>
-          <ScrollView
-            horizontal
-            style={{ marginTop: 10, gap: 4, paddingVertical: 10 }}
-          >
-            {availableDates &&
-              availableDates.map((d, i) => {
-                return (
+          <View style={styles.container}>
+            {availableDates && (
+              <FlatList
+                data={availableDates}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                renderItem={({ item: d, index: i }) => (
                   <TouchableOpacity
                     key={`${d.month}/${d.day}`}
-                    style={{
-                      marginHorizontal: 10,
-                      width: 80,
-                      height: 50,
-                      borderRadius: 50,
-                      backgroundColor:
-                        `${d.month}/${d.day}` === selectedDay
-                          ? theme.colors.primary
-                          : theme.colors.background,
-                      justifyContent: "flex-end",
-                      alignItems: "center",
-                      gap: 2,
-                      paddingVertical: 5,
-                      borderWidth: 1,
-                      borderColor: theme.colors.border,
-                    }}
+                    style={[
+                      styles.dateContainer,
+                      {
+                        backgroundColor:
+                          `${d.month}/${d.day}` === selectedDay
+                            ? theme.colors.primary
+                            : theme.colors.background,
+                        borderColor: theme.colors.border,
+                      },
+                    ]}
                     onPress={() => setSelectedDay(`${d.month}/${d.day}`)}
                   >
                     {i === 0 ? (
                       <Text
-                        style={{
-                          color:
-                            `${d.month}/${d.day}` === selectedDay
-                              ? theme.colors.background
-                              : theme.colors.text,
-                          opacity: 0.6,
-                        }}
+                        style={[
+                          styles.todayText,
+                          {
+                            color:
+                              `${d.month}/${d.day}` === selectedDay
+                                ? theme.colors.background
+                                : theme.colors.text,
+                          },
+                        ]}
                       >
                         Today
                       </Text>
                     ) : (
                       <Text
-                        style={{
-                          color:
-                            `${d.month}/${d.day}` === selectedDay
-                              ? theme.colors.background
-                              : theme.colors.text,
-                          opacity: 0.6,
-                        }}
+                        style={[
+                          styles.todayText,
+                          {
+                            color:
+                              `${d.month}/${d.day}` === selectedDay
+                                ? theme.colors.background
+                                : theme.colors.text,
+                          },
+                        ]}
                       >
+                        {/* @ts-ignore */}
                         {dayNames[`${d.dayName}`]}
                       </Text>
                     )}
-                    <View style={{ flexDirection: "row", gap: 4 }}>
+                    <View style={styles.dateRow}>
                       <Text
-                        style={{
-                          color:
-                            `${d.month}/${d.day}` === selectedDay
-                              ? theme.colors.background
-                              : theme.colors.text,
-                          fontSize: 15,
-                          fontWeight: "600",
-                        }}
+                        style={[
+                          styles.dateText,
+                          {
+                            color:
+                              `${d.month}/${d.day}` === selectedDay
+                                ? theme.colors.background
+                                : theme.colors.text,
+                          },
+                        ]}
                       >
                         {d.day}
                       </Text>
                       <Text
-                        style={{
-                          color:
-                            `${d.month}/${d.day}` === selectedDay
-                              ? theme.colors.background
-                              : theme.colors.text,
-                          fontSize: 15,
-                          fontWeight: "600",
-                        }}
+                        style={[
+                          styles.dateText,
+                          {
+                            color:
+                              `${d.month}/${d.day}` === selectedDay
+                                ? theme.colors.background
+                                : theme.colors.text,
+                          },
+                        ]}
                       >
                         {d.month}
                       </Text>
                     </View>
                   </TouchableOpacity>
-                );
-              })}
-          </ScrollView>
+                )}
+              />
+            )}
+          </View>
         </View>
         <View style={{ marginTop: 10 }}>
           <Text style={{ fontSize: 20, fontWeight: "600" }}>Time</Text>
@@ -415,5 +412,31 @@ const styles = StyleSheet.create({
     height: 52,
     alignItems: "center",
     flexDirection: "row",
+  },
+  container: {
+    flex: 1,
+    paddingVertical: 10,
+  },
+  dateContainer: {
+    marginHorizontal: 10,
+    width: 80,
+    height: 50,
+    borderRadius: 50,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    gap: 2,
+    paddingVertical: 5,
+    borderWidth: 1,
+  },
+  todayText: {
+    opacity: 0.6,
+  },
+  dateText: {
+    fontSize: 15,
+    fontWeight: "600",
+  },
+  dateRow: {
+    flexDirection: "row",
+    gap: 4,
   },
 });

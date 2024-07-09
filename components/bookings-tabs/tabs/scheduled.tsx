@@ -1,4 +1,8 @@
+import MatertialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import MatertialIcons from "@expo/vector-icons/MaterialIcons";
 import { useTheme } from "@react-navigation/native";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import {
   Image,
   ScrollView,
@@ -7,12 +11,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import MatertialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import MatertialIcons from "@expo/vector-icons/MaterialIcons";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { API_URL } from "../../../utils/contants";
 import { useUser } from "../../../hooks/use-user";
+import { API_URL } from "../../../utils/contants";
 
 const Scheduled = () => {
   const theme = useTheme();

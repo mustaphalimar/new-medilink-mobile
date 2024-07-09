@@ -1,9 +1,9 @@
-import { useTheme } from "@react-navigation/native";
-import { View, Text, StyleSheet, TextInput } from "react-native";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import { useLocation } from "../hooks/use-location";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { useTheme } from "@react-navigation/native";
 import { useEffect, useState } from "react";
+import { StyleSheet, Text, TextInput, View } from "react-native";
+import { useLocation } from "../hooks/use-location";
 
 const HomeHeader = () => {
   const location = useLocation();

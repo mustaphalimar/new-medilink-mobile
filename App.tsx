@@ -8,7 +8,7 @@ import {
 import { useFonts } from "expo-font";
 
 import * as SplashScreen from "expo-splash-screen";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import RootNavigator from "./navigators";
 
@@ -19,7 +19,7 @@ function App() {
 
   const theme: Theme = {
     ...DefaultTheme,
-    colors: { ...DefaultTheme.colors, primary: "#3b79ff" },
+    colors: { ...DefaultTheme.colors, primary: "#3b79ff", background: "#fff" },
   };
 
   const onLayoutRootView = useCallback(async () => {

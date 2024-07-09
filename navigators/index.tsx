@@ -1,8 +1,7 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet } from "react-native";
+import { useUser } from "../hooks/use-user";
 import PrivateStack from "./private-stack";
 import PublicStack from "./public-stack";
-import LoadingScreen from "../components/ui/loading";
-import { useUser } from "../hooks/use-user";
 
 const RootNavigator = () => {
   const user = useUser();

@@ -105,7 +105,8 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
                 paddingRight: 12,
                 height: 48,
                 borderRadius: 12,
-
+                borderWidth: 1,
+                borderColor: theme.colors.border,
                 backgroundColor: theme.colors.background,
                 width: "100%",
               }}
@@ -129,7 +130,8 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
                 paddingRight: 12,
                 height: 48,
                 borderRadius: 12,
-
+                borderWidth: 1,
+                borderColor: theme.colors.border,
                 backgroundColor: theme.colors.background,
                 width: "100%",
               }}

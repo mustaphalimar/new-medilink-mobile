@@ -3,8 +3,8 @@ import { useTheme } from "@react-navigation/native";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
-import { API_URL } from "../utils/contants";
 import { useUser } from "../hooks/use-user";
+import { API_URL } from "../utils/contants";
 
 const UpcomingSchedule = () => {
   const theme = useTheme();

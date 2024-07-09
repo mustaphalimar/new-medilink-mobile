@@ -1,21 +1,15 @@
-import React from "react";
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import MatertialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MatertialIcons from "@expo/vector-icons/MaterialIcons";
-import { PrivateStackScreenProps } from "../../navigators/private-stack";
 import { useTheme } from "@react-navigation/native";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import BookingTabs from "../../components/bookings-tabs/bookings-tabs";
+import { BookingsStackScreenProps } from "../../navigators/private-stack";
 
-type BookingsScreenProps = PrivateStackScreenProps<"Bookings">;
-
-const BookingsScreen: React.FC<BookingsScreenProps> = ({ navigation }) => {
+const BookingsScreen: React.FC<BookingsStackScreenProps<"BookingsScreen">> = ({
+  navigation,
+  route,
+}) => {
   const theme = useTheme();
   return (
     <SafeAreaView
@@ -48,7 +42,7 @@ const BookingsScreen: React.FC<BookingsScreenProps> = ({ navigation }) => {
           <MatertialIcons name="search" size={30} color={theme.colors.text} />
         </View>
       </View>
-      <BookingTabs />
+      <BookingTabs navigation={navigation} route={route} />
     </SafeAreaView>
   );
 };

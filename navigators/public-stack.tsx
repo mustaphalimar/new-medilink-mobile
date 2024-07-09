@@ -1,12 +1,11 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
 import IntroScreen01 from "../screens/public/intro-screen-01";
 import IntroScreen02 from "../screens/public/intro-screen-02";
 import IntroScreen03 from "../screens/public/intro-screen-03";
 import LoginScreen from "../screens/public/login-screen";
 import SignUpScreen from "../screens/public/signup-screen";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 export type PublicStackParamList = {
   IntroScreen01: undefined;

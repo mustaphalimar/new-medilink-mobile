@@ -6,17 +6,15 @@ import Feather from "react-native-vector-icons/Feather";
 import DoctorDetails from "../screens/private/doctor-details";
 import HomeScreen from "../screens/private/home";
 
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useTheme } from "@react-navigation/native";
 import { Text, View } from "react-native";
-import ExploreScreen from "../screens/private/explore";
-import ChatScreen from "../screens/private/chat";
-import BookingsScreen from "../screens/private/bookings";
-import ProfileScreen from "../screens/private/profile";
 import BookAppointment from "../screens/private/book-appointment";
+import BookingsScreen from "../screens/private/bookings";
+import ChatScreen from "../screens/private/chat";
+import ExploreScreen from "../screens/private/explore";
+import MyAppointments from "../screens/private/my-appointments";
+import ProfileScreen from "../screens/private/profile";
 import YourProfile from "../screens/private/your-profile";
 
 const Tab = createBottomTabNavigator();
@@ -39,6 +37,25 @@ export type ProfileStackParamList = {
   YourProfileScreen: undefined;
   SettingsScreen: undefined;
 };
+
+export type BookingsStackParamList = {
+  BookingsScreen: undefined;
+  MyAppointments: undefined;
+};
+
+const BookingsStack = createNativeStackNavigator<BookingsStackParamList>();
+
+export type BookingsStackScreenProps<T extends keyof BookingsStackParamList> =
+  NativeStackScreenProps<BookingsStackParamList, T>;
+
+function BookingsStackScreen() {
+  return (
+    <BookingsStack.Navigator screenOptions={{ headerShown: false }}>
+      <BookingsStack.Screen name="BookingsScreen" component={BookingsScreen} />
+      <BookingsStack.Screen name="MyAppointments" component={MyAppointments} />
+    </BookingsStack.Navigator>
+  );
+}
 
 const HomeStack = createNativeStackNavigator<HomeStackParamList>();
 
@@ -152,7 +169,7 @@ const PrivateNavigator = () => {
             ),
           }}
           // @ts-ignore
-          component={BookingsScreen}
+          component={BookingsStackScreen}
         />
         <Tab.Screen
           name="Chat"

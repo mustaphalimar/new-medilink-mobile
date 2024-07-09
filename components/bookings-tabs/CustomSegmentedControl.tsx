@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface CustomSegmentedControlProps {
   tabs: string[];
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
   segmentedControl: {
     flexDirection: "row",
     justifyContent: "space-around",
-    backgroundColor: "#f1f1f1",
     borderRadius: 5,
     padding: 5,
   },

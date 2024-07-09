@@ -1,13 +1,11 @@
 import { useTheme } from "@react-navigation/native";
 import {
-  View,
-  Text,
-  Pressable,
-  StyleSheet,
-  TouchableOpacity,
   StyleProp,
-  ViewStyle,
+  StyleSheet,
+  Text,
   TextStyle,
+  TouchableOpacity,
+  ViewStyle,
 } from "react-native";
 
 interface Props {

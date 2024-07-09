@@ -1,9 +1,9 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import Dentist from "./specialities/dentist";
-import Cardiology from "./specialities/cardiology";
-import Eyeology from "./specialities/eyeology";
 import { useTheme } from "@react-navigation/native";
+import Cardiology from "./artworks/specialities/cardiology";
+import Dentist from "./artworks/specialities/dentist";
+import Eyeology from "./artworks/specialities/eyeology";
 
 const specialities = [
   {

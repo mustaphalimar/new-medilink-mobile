@@ -1,11 +1,6 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import {
-  TypedNavigator,
-  useTheme,
-  useNavigation,
-  NavigationProp,
-} from "@react-navigation/native";
+import { NavigationProp, useTheme } from "@react-navigation/native";
 
 import {
   Image,
@@ -15,11 +10,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import {
-  HomeStackScreenProps,
-  PrivateStackParamList,
-  PrivateStackScreenProps,
-} from "../navigators/private-stack";
 
 interface Props {
   doctor: {
@@ -29,10 +19,6 @@ interface Props {
   };
   navigation: NavigationProp<any, any>;
 }
-
-const getImageSource = (image: ImageSourcePropType) => {
-  return Image.resolveAssetSource(image);
-};
 
 const SpecialistDoctorCard = ({ doctor, navigation }: Props) => {
   const theme = useTheme();
@@ -162,7 +148,7 @@ const SpecialistDoctorCard = ({ doctor, navigation }: Props) => {
         style={{
           width: "100%",
           backgroundColor: "#cfddfa",
-          borderRadius: 10,
+          borderRadius: 50,
           height: 50,
           justifyContent: "center",
           alignItems: "center",
