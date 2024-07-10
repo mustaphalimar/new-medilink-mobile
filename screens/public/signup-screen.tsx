@@ -1,6 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
-import React from "react";
+import React, { useState } from "react";
 import {
   KeyboardAvoidingView,
   Platform,
@@ -18,38 +18,22 @@ import axios from "axios";
 import { useUser } from "../../hooks/use-user";
 import { API_URL } from "../../utils/contants";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-const formSchema = z.object({
-  name: z
-    .string()
-    .min(2, "Name is required and must be at least 2 characters long."),
-  email: z.string().email(),
-  password: z.string().min(8, "Password must be at least 8 characters long. "),
-  confirmedPassword: z.string(),
-});
-type SignUpSchema = z.infer<typeof formSchema>;
-
 const SignUpScreen = ({
   navigation,
 }: PublicStackScreenProps<"SignupScreen">) => {
   const theme = useTheme();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<SignUpSchema>({
-    resolver: zodResolver(formSchema),
+  const [value, setValue] = useState({
+    email: "",
+    password: "",
+    name: "",
+    confirmedPassword: "",
   });
 
   const user = useUser();
 
-  const signUp = async (data: SignUpSchema) => {
-    const { email, password, confirmedPassword, name } = data;
+  const signUp = async () => {
+    const { email, password, confirmedPassword, name } = value;
 
     if (!email || !password || !name || !confirmedPassword) return;
 
@@ -151,7 +135,8 @@ const SignUpScreen = ({
         >
           <View style={styles.inputContainer}>
             <TextInput
-              {...register("name")}
+              value={value.name}
+              onChangeText={(text) => setValue((pv) => ({ ...pv, name: text }))}
               placeholder="John Doe"
               autoCapitalize="none"
               style={{
@@ -175,14 +160,13 @@ const SignUpScreen = ({
               style={styles.icon}
             />
           </View>
-          {errors.name && (
-            <Text style={{ color: "red", fontSize: 12 }}>
-              {errors.name.message}
-            </Text>
-          )}
+
           <View style={styles.inputContainer}>
             <TextInput
-              {...register("email")}
+              value={value.email}
+              onChangeText={(text) =>
+                setValue((pv) => ({ ...pv, email: text }))
+              }
               placeholder="Email@example.com"
               autoCapitalize="none"
               style={{
@@ -206,14 +190,13 @@ const SignUpScreen = ({
               style={styles.icon}
             />
           </View>
-          {errors.email && (
-            <Text style={{ color: "red", fontSize: 12 }}>
-              {errors.email.message}
-            </Text>
-          )}
+
           <View style={styles.inputContainer}>
             <TextInput
-              {...register("password")}
+              value={value.password}
+              onChangeText={(text) =>
+                setValue((pv) => ({ ...pv, password: text }))
+              }
               placeholder="Password"
               autoCapitalize="none"
               style={{
@@ -237,14 +220,13 @@ const SignUpScreen = ({
               style={styles.icon}
             />
           </View>
-          {errors.password && (
-            <Text style={{ color: "red", fontSize: 12 }}>
-              {errors.password.message}
-            </Text>
-          )}
+
           <View style={styles.inputContainer}>
             <TextInput
-              {...register("confirmedPassword")}
+              value={value.confirmedPassword}
+              onChangeText={(text) =>
+                setValue((pv) => ({ ...pv, confirmedPassword: text }))
+              }
               placeholder="Comfirm Password"
               autoCapitalize="none"
               style={{
@@ -268,15 +250,11 @@ const SignUpScreen = ({
               style={styles.icon}
             />
           </View>
-          {errors.confirmedPassword && (
-            <Text style={{ color: "red", fontSize: 12 }}>
-              {errors.confirmedPassword.message}
-            </Text>
-          )}
+
           <PrimaryButton
             label="Sign Up"
             style={{ width: "100%", marginTop: 10 }}
-            onPress={handleSubmit(signUp)}
+            onPress={signUp}
           />
           <TouchableOpacity
             style={{}}

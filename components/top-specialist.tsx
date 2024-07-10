@@ -20,9 +20,13 @@ const TopSpecialist = ({ navigation }: Props) => {
         const res = await axios.get(`${API_URL}/doctor`);
 
         if (res.data) {
-          const doctors = res.data.map((d: any) => ({ id: d.id, ...d.user }));
+          const doctors = res.data.map((d: any) => ({
+            id: d.id,
+            ...d.user,
+            name: d.name,
+          }));
           setDoctors(doctors);
-          console.log(doctors);
+          console.log("DOCTORS:", doctors);
         }
       } catch (error: any) {
         console.log("error fetching doctors:", error.message);

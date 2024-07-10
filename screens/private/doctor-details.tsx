@@ -17,13 +17,6 @@ import { API_URL } from "../../utils/contants";
 
 export const statistics = [
   {
-    id: 1,
-    name: "Patients",
-    icon_name: "people",
-    number: "7500+",
-    icon: MaterialIcons,
-  },
-  {
     id: 2,
     name: "Years Exp.",
     icon_name: "work",
@@ -88,12 +81,14 @@ const DoctorDetails = ({
   const [doctorData, setDoctorData] = useState<any>();
   // @ts-ignore
   const doctorId = route.params ? route.params.doctorId : "";
+  const [patientsNumber, setPatientsNumber] = useState(0);
 
   useEffect(() => {
     async function fetchDoctorDetails() {
       try {
         const res = await axios(`${API_URL}/doctor/${doctorId}`);
-        console.log("USER : ", res.data.user);
+        console.log("DOCTOR : ", res.data);
+        setPatientsNumber(res.data.patients.length);
 
         setDoctorData(res.data);
       } catch (error: any) {
@@ -178,7 +173,7 @@ const DoctorDetails = ({
             <View style={{ gap: 10 }}>
               <View>
                 <Text style={{ fontWeight: "600", fontSize: 20 }}>
-                  {doctorData && doctorData.user.name}
+                  {doctorData && doctorData.name}
                 </Text>
                 <Text style={{ fontSize: 14, opacity: 0.5 }}>
                   {doctorData && doctorData.speciality}
@@ -216,6 +211,40 @@ const DoctorDetails = ({
             gap: 4,
           }}
         >
+          <View style={{ alignItems: "center", justifyContent: "center" }}>
+            <View
+              style={{
+                backgroundColor: "#cfddfa",
+                width: 60,
+                height: 60,
+                borderRadius: 50,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <MaterialIcons
+                // @ts-ignore
+                name="people"
+                size={30}
+                color={theme.colors.primary}
+              />
+              {/* <MaterialIcons
+                name="work"
+                size={30}
+                color={theme.colors.primary}
+              /> */}
+            </View>
+            <Text
+              style={{
+                color: theme.colors.primary,
+                fontWeight: "600",
+                fontSize: 18,
+              }}
+            >
+              {patientsNumber}
+            </Text>
+            <Text style={{ fontSize: 14, opacity: 0.5 }}>Patients</Text>
+          </View>
           {statistics.map((s) => {
             const Icon = s.icon;
             return (

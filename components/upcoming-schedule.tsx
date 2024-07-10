@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 import { useUser } from "../hooks/use-user";
 import { API_URL } from "../utils/contants";
+import { parseISO, format } from "date-fns";
+import { extractTime } from "../utils/helpers";
 
 const UpcomingSchedule = () => {
   const theme = useTheme();
@@ -93,7 +95,7 @@ const UpcomingSchedule = () => {
                 <Text
                   style={{ color: "white", fontSize: 18, fontWeight: "500" }}
                 >
-                  Dr. {upcomingSchedule.doctor.user.name}
+                  Dr. {upcomingSchedule.doctor.name}
                 </Text>
                 <Text style={{ color: theme.colors.border, fontWeight: "500" }}>
                   Neurosurgeon Consultation
@@ -157,7 +159,7 @@ const UpcomingSchedule = () => {
               />
               <Text>
                 <Text style={{ color: theme.colors.background }}>
-                  09:00 - 10:00
+                  {extractTime(upcomingSchedule.date)}
                 </Text>
               </Text>
             </View>

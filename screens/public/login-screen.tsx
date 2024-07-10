@@ -1,8 +1,7 @@
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
-  Image,
   KeyboardAvoidingView,
   SafeAreaView,
   StyleSheet,
@@ -14,23 +13,11 @@ import {
 import PrimaryButton from "../../components/ui/primary-button";
 import { PublicStackScreenProps } from "../../navigators/public-stack";
 // @ts-ignore
-import googleSVG from "../../assets/images/google.png";
 // @ts-ignore
-import facebookSVG from "../../assets/images/facebook.png";
 
 import axios from "axios";
-import { API_URL } from "../../utils/contants";
 import { useUser } from "../../hooks/use-user";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8, "Password must be at least 8 characters long. "),
-});
-type LoginSchema = z.infer<typeof formSchema>;
+import { API_URL } from "../../utils/contants";
 
 const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
   const theme = useTheme();
@@ -41,17 +28,8 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
   });
   const user = useUser();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-    reset,
-  } = useForm<LoginSchema>({
-    resolver: zodResolver(formSchema),
-  });
-
-  const signIn = async (data: LoginSchema) => {
-    const { email, password } = data;
+  const signIn = async () => {
+    const { email, password } = values;
     if (!email || !password) {
       alert("Please provide enough credentials.");
     }
@@ -119,9 +97,10 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
         >
           <View style={styles.inputContainer}>
             <TextInput
-              {...register("email")}
               placeholder="email@example.com"
               autoCapitalize="none"
+              value={values.email}
+              onChangeText={(text) => setValues({ ...values, email: text })}
               style={{
                 fontSize: 16,
                 fontWeight: "500",
@@ -143,14 +122,9 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
               style={styles.icon}
             />
           </View>
-          {errors.email && (
-            <Text style={{ color: "red", fontSize: 12 }}>
-              {errors.email.message}
-            </Text>
-          )}
+
           <View style={styles.inputContainer}>
             <TextInput
-              {...register("password")}
               placeholder="Password"
               autoCapitalize="none"
               style={{
@@ -166,6 +140,8 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
                 backgroundColor: theme.colors.background,
                 width: "100%",
               }}
+              value={values.password}
+              onChangeText={(text) => setValues({ ...values, password: text })}
             />
             <MaterialIcons
               name="lock"
@@ -174,18 +150,12 @@ const LoginScreen = ({ navigation }: PublicStackScreenProps<"LoginScreen">) => {
               style={styles.icon}
             />
           </View>
-          {errors.password && (
-            <Text style={{ color: "red", fontSize: 12 }}>
-              {errors.password.message}
-            </Text>
-          )}
 
           <PrimaryButton
             label="Login"
             style={{ width: "100%", marginTop: 10 }}
-            onPress={handleSubmit(signIn)}
+            onPress={signIn}
           />
-          <Text style={{ opacity: 0.6 }}>OR</Text>
           {/* <View
             style={{
               flexDirection: "row",

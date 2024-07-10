@@ -24,6 +24,8 @@ const SpecialistDoctorCard = ({ doctor, navigation }: Props) => {
 
   const { id, name } = doctor;
 
+  console.log(doctor);
+
   return (
     <View
       style={{

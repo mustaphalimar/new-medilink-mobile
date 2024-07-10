@@ -96,7 +96,7 @@ const Completed: React.FC<BookingsStackScreenProps<"BookingsScreen">> = ({
                 </View>
                 <View style={{ gap: 5 }}>
                   <Text style={{ fontSize: 16, fontWeight: "600" }}>
-                    Dr. {appt.doctor.user.name}
+                    Dr. {appt.doctor.name}
                   </Text>
                   <View
                     style={{

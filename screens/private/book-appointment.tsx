@@ -379,9 +379,9 @@ const BookAppointment = ({
             )}
           </View>
         </View>
-        <View style={{ marginTop: 10 }}>
+        {/* <View style={{ marginTop: 10 }}>
           <Text style={{ fontSize: 20, fontWeight: "600" }}>Time</Text>
-        </View>
+        </View> */}
       </ScrollView>
 
       <TouchableOpacity

@@ -1,4 +1,5 @@
-import { MaterialCommunityIcons, MaterialIcons } from "@expo/vector-icons";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import { useTheme } from "@react-navigation/native";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -97,7 +98,7 @@ const Upcoming: React.FC<BookingsStackScreenProps<"BookingsScreen">> = ({
                 </View>
                 <View style={{ gap: 5 }}>
                   <Text style={{ fontSize: 16, fontWeight: "600" }}>
-                    Dr. {appt.doctor.user.name}
+                    Dr. {appt.doctor.name}
                   </Text>
                   <View
                     style={{

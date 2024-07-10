@@ -24,8 +24,8 @@ const YourProfile: React.FC<ProfileStackScreenProps<"YourProfileScreen">> = ({
 
   const [name, setName] = useState(user.user.name);
   const [email, setEmail] = useState(user.user.email);
-  const [phoneNumber, setPhoneNumber] = useState("+2126123456");
-  const [dob, setDob] = useState("30/06/1992");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [dob, setDob] = useState("");
 
   return (
     <SafeAreaView style={{ paddingHorizontal: 20 }}>
@@ -108,6 +108,7 @@ const YourProfile: React.FC<ProfileStackScreenProps<"YourProfileScreen">> = ({
           <View style={{ marginTop: 30, gap: 10, width: "100%" }}>
             <Text>Phone Number</Text>
             <TextInput
+              placeholder="+212666666666"
               value={phoneNumber}
               onChangeText={(t) => {
                 setPhoneNumber(t);
@@ -126,6 +127,7 @@ const YourProfile: React.FC<ProfileStackScreenProps<"YourProfileScreen">> = ({
             <Text>Date of birth</Text>
             <TextInput
               value={dob}
+              placeholder="DD/MM/YYYY"
               onChangeText={(t) => {
                 setDob(t);
               }}
